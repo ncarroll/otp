@@ -1,5 +1,5 @@
-@(message: String)
+@(loginForm: Form[forms.Login])
 
-@main("OTP") {
-Hello world!
+@main(title = "OTP") {
+    @login(loginForm)
 }
