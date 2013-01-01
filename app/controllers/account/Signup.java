@@ -1,6 +1,5 @@
 package controllers.account;
 
-import forms.Register;
 import models.User;
 import models.utils.AppException;
 import models.utils.Hash;
@@ -26,22 +25,22 @@ import static play.data.Form.form;
 public class Signup extends Controller {
 
     public static Result create() {
-        return ok(create.render(form(Register.class)));
+        return ok(create.render(form(forms.Signup.class)));
     }
 
     public static Result createFormOnly() {
-        return ok(create.render(form(Register.class)));
+        return ok(create.render(form(forms.Signup.class)));
     }
 
     public static Result save() {
-        Form<Register> registerForm = form(Register.class).bindFromRequest();
+        Form<forms.Signup> signupForm = form(forms.Signup.class).bindFromRequest();
 
-        if (registerForm.hasErrors()) {
-            return badRequest(create.render(registerForm));
+        if (signupForm.hasErrors()) {
+            return badRequest(create.render(signupForm));
         }
 
-        Register register = registerForm.get();
-        Result resultError = checkBeforeSave(registerForm, register.email);
+        forms.Signup signup = signupForm.get();
+        Result resultError = checkBeforeSave(signupForm, signup.email);
 
         if (resultError != null) {
             return resultError;
@@ -49,9 +48,9 @@ public class Signup extends Controller {
 
         try {
             User user = new User();
-            user.email = register.email;
-            user.fullname = register.fullname;
-            user.passwordHash = Hash.createPassword(register.inputPassword);
+            user.email = signup.email;
+            user.fullname = signup.fullname;
+            user.passwordHash = Hash.createPassword(signup.inputPassword);
             user.confirmationToken = UUID.randomUUID().toString();
 
             user.save();
@@ -65,14 +64,14 @@ public class Signup extends Controller {
             Logger.error("Signup.save error", e);
             flash("error", Messages.get("error.technical"));
         }
-        return badRequest(create.render(registerForm));
+        return badRequest(create.render(signupForm));
     }
 
-    private static Result checkBeforeSave(Form<Register> registerForm, String email) {
+    private static Result checkBeforeSave(Form<forms.Signup> signupForm, String email) {
         // Check unique email
         if (User.findByEmail(email) != null) {
             flash("error", Messages.get("error.email.already.exist"));
-            return badRequest(create.render(registerForm));
+            return badRequest(create.render(signupForm));
         }
 
         return null;

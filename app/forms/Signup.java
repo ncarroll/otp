@@ -3,7 +3,7 @@ package forms;
 
 import play.data.validation.Constraints;
 
-public class Register {
+public class Signup {
 
     @Constraints.Required
     public String email;
