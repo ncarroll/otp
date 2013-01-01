@@ -1,5 +1,19 @@
-@(loginForm: Form[forms.Login])
+@(signupForm: Form[forms.Register], loginForm: Form[forms.Login])
 
-@main(title = "OTP") {
-    @login(loginForm)
+@scripts = {
+    <script src="@routes.Assets.at("javascripts/password.js")" type="text/javascript"></script>
+}
+
+@main(title = "OTP", scripts = scripts) {
+    @wflash()
+
+    <div class="span8">
+        <div class="well">
+        @login(loginForm)
+        </div>
+
+        <div class="well">
+        @account.signup.createFormOnly(signupForm)
+        </div>
+    </div>
 }

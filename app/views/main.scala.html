@@ -1,4 +1,4 @@
-@(title: String, user: User = null)(content: Html)
+@(title: String = "OTP", user: User = null, scripts: Html = Html(""))(content: Html)
 
 <!DOCTYPE html>
 
@@ -15,6 +15,8 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-2.2.2.min.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-responsive-2.2.2.min.css")">
+
+        @scripts
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">

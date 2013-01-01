@@ -3,6 +3,16 @@
 
 # --- !Ups
 
+create table token (
+  token                     varchar(255) not null,
+  user_id                   bigint,
+  type                      varchar(8),
+  date_creation             timestamp,
+  email                     varchar(255),
+  constraint ck_token_type check (type in ('password','email')),
+  constraint pk_token primary key (token))
+;
+
 create table user (
   id                        bigint not null,
   email                     varchar(255),
@@ -16,6 +26,8 @@ create table user (
   constraint pk_user primary key (id))
 ;
 
+create sequence token_seq;
+
 create sequence user_seq;
 
 
@@ -25,9 +37,13 @@ create sequence user_seq;
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
+drop table if exists token;
+
 drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists token_seq;
 
 drop sequence if exists user_seq;
 

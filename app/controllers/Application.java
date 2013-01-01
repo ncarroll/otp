@@ -32,7 +32,7 @@ public class Application extends Controller {
             }
         }
 
-        return ok(index.render(form(Login.class)));
+        return ok(index.render(form(Register.class), form(Login.class)));
     }
 
     public Result authenticate() {
@@ -41,7 +41,7 @@ public class Application extends Controller {
         Form<Register> registerForm = form(Register.class);
 
         if (loginForm.hasErrors()) {
-            return badRequest(index.render(loginForm));
+            return badRequest(index.render(registerForm, loginForm));
         } else {
             session("email", loginForm.get().email);
             return GO_DASHBOARD;
