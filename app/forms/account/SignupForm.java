@@ -1,9 +1,9 @@
-package forms;
+package forms.account;
 
 
 import play.data.validation.Constraints;
 
-public class Signup {
+public class SignupForm {
 
     @Constraints.Required
     public String email;

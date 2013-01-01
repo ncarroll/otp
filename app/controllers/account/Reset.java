@@ -1,5 +1,7 @@
 package controllers.account;
 
+import forms.account.AskForm;
+import forms.account.ResetForm;
 import models.Token;
 import models.User;
 import models.utils.AppException;
@@ -7,7 +9,6 @@ import models.utils.Mail;
 import org.apache.commons.mail.EmailException;
 import play.Logger;
 import play.data.Form;
-import play.data.validation.Constraints;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -20,16 +21,6 @@ import java.net.MalformedURLException;
 import static play.data.Form.form;
 
 public class Reset extends Controller {
-
-    public static class AskForm {
-        @Constraints.Required
-        public String email;
-    }
-
-    public static class ResetForm {
-        @Constraints.Required
-        public String inputPassword;
-    }
 
     public static Result ask() {
         Form<AskForm> askForm = form(AskForm.class);
@@ -105,9 +96,6 @@ public class Reset extends Controller {
         return ok(reset.render(resetForm, token));
     }
 
-    /**
-     * @return reset password form
-     */
     public static Result runReset(String token) {
         Form<ResetForm> resetForm = form(ResetForm.class).bindFromRequest();
 

@@ -1,7 +1,7 @@
 package controllers;
 
-import forms.Login;
-import forms.Signup;
+import forms.account.LoginForm;
+import forms.account.SignupForm;
 import models.User;
 import play.Logger;
 import play.data.Form;
@@ -32,13 +32,13 @@ public class Application extends Controller {
             }
         }
 
-        return ok(index.render(form(Signup.class), form(Login.class)));
+        return ok(index.render(form(SignupForm.class), form(LoginForm.class)));
     }
 
     public Result authenticate() {
-        Form<Login> loginForm = form(Login.class).bindFromRequest();
+        Form<LoginForm> loginForm = form(LoginForm.class).bindFromRequest();
 
-        Form<Signup> signupForm = form(Signup.class);
+        Form<SignupForm> signupForm = form(SignupForm.class);
 
         if (loginForm.hasErrors()) {
             return badRequest(index.render(signupForm, loginForm));

@@ -1,5 +1,6 @@
 package controllers.account;
 
+import forms.account.SignupForm;
 import models.User;
 import models.utils.AppException;
 import models.utils.Hash;
@@ -24,22 +25,22 @@ import static play.data.Form.form;
 @org.springframework.stereotype.Controller
 public class Signup extends Controller {
 
-    public static Result create() {
-        return ok(create.render(form(forms.Signup.class)));
+    public Result create() {
+        return ok(create.render(form(SignupForm.class)));
     }
 
-    public static Result createFormOnly() {
-        return ok(create.render(form(forms.Signup.class)));
+    public Result createFormOnly() {
+        return ok(create.render(form(SignupForm.class)));
     }
 
-    public static Result save() {
-        Form<forms.Signup> signupForm = form(forms.Signup.class).bindFromRequest();
+    public Result save() {
+        Form<SignupForm> signupForm = form(SignupForm.class).bindFromRequest();
 
         if (signupForm.hasErrors()) {
             return badRequest(create.render(signupForm));
         }
 
-        forms.Signup signup = signupForm.get();
+        SignupForm signup = signupForm.get();
         Result resultError = checkBeforeSave(signupForm, signup.email);
 
         if (resultError != null) {
@@ -58,16 +59,16 @@ public class Signup extends Controller {
 
             return ok(created.render());
         } catch (EmailException e) {
-            Logger.debug("Signup.save Cannot send email", e);
+            Logger.debug("SignupForm.save Cannot send email", e);
             flash("error", Messages.get("error.sending.email"));
         } catch (Exception e) {
-            Logger.error("Signup.save error", e);
+            Logger.error("SignupForm.save error", e);
             flash("error", Messages.get("error.technical"));
         }
         return badRequest(create.render(signupForm));
     }
 
-    private static Result checkBeforeSave(Form<forms.Signup> signupForm, String email) {
+    private Result checkBeforeSave(Form<SignupForm> signupForm, String email) {
         // Check unique email
         if (User.findByEmail(email) != null) {
             flash("error", Messages.get("error.email.already.exist"));
@@ -77,7 +78,7 @@ public class Signup extends Controller {
         return null;
     }
 
-    private static void sendMailAskForConfirmation(User user) throws EmailException, MalformedURLException {
+    private void sendMailAskForConfirmation(User user) throws EmailException, MalformedURLException {
         String subject = Messages.get("mail.confirm.subject");
 
         String urlString = "http://" + Configuration.root().getString("server.hostname");
@@ -89,7 +90,7 @@ public class Signup extends Controller {
         Mail.sendMail(envelope);
     }
 
-    public static Result confirm(String token) {
+    public Result confirm(String token) {
         User user = User.findByConfirmationToken(token);
         if (user == null) {
             flash("error", Messages.get("error.unknown.email"));
@@ -107,7 +108,7 @@ public class Signup extends Controller {
                 flash("success", Messages.get("account.successfully.validated"));
                 return ok(confirm.render());
             } else {
-                Logger.debug("Signup.confirm cannot confirm user");
+                Logger.debug("SignupForm.confirm cannot confirm user");
                 flash("error", Messages.get("error.confirm"));
                 return badRequest(confirm.render());
             }
@@ -121,7 +122,7 @@ public class Signup extends Controller {
         return badRequest(confirm.render());
     }
 
-    private static void sendMailConfirmation(User user) throws EmailException {
+    private void sendMailConfirmation(User user) throws EmailException {
         String subject = Messages.get("mail.welcome.subject");
         String message = Messages.get("mail.welcome.message");
         Mail.Envelope envelope = new Mail.Envelope(subject, message, user.email);

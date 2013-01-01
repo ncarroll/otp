@@ -1,11 +1,11 @@
-package forms;
+package forms.account;
 
 import models.User;
 import models.utils.AppException;
 import play.data.validation.Constraints;
 import play.i18n.Messages;
 
-public class Login {
+public class LoginForm {
 
     @Constraints.Required
     public String email;
