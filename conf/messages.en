@@ -33,7 +33,6 @@ signin.signin=Sign In
 signin.your.email=Your email address
 signin.your.password=Your password
 signup.msg.created=You will receive a confirmation email soon. Check your email to activate your account.
-signup.generate.password=Generate a password
 signup.new=New?
 signup.reset.password=Reset your password
 signup.successfull=Sign Up - Successful!
