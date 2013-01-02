@@ -9,6 +9,7 @@ public class Global extends GlobalSettings {
     @Override
     public void onStart(Application application) {
         applicationContext = new AnnotationConfigApplicationContext();
+        applicationContext.register(AppConfig.class);
         applicationContext.scan("controllers");
         applicationContext.refresh();
     }

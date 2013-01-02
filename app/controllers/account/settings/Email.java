@@ -1,11 +1,11 @@
 package controllers.account.settings;
 
 import controllers.Secured;
+import forms.account.AskForm;
 import models.Token;
 import models.User;
 import play.Logger;
 import play.data.Form;
-import play.data.validation.Constraints;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -19,15 +19,6 @@ import static play.data.Form.form;
 
 @Security.Authenticated(Secured.class)
 public class Email extends Controller {
-
-    public static class AskForm {
-        @Constraints.Required
-        public String email;
-        public AskForm() {}
-        AskForm(String email) {
-            this.email = email;
-        }
-    }
 
     public static Result index() {
         User user = User.findByEmail(request().username());

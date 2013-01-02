@@ -1,9 +1,11 @@
 package controllers;
 
+import org.springframework.stereotype.Component;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
+@Component
 public class Secured extends Security.Authenticator {
 
     @Override

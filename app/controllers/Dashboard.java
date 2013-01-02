@@ -6,6 +6,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import views.html.dashboard.index;
 
+
 @org.springframework.stereotype.Controller
 @Security.Authenticated(Secured.class)
 public class Dashboard extends Controller {

@@ -6,4 +6,10 @@ public class AskForm {
 
     @Constraints.Required
     public String email;
+
+    public AskForm() {}
+
+    public AskForm(String email) {
+        this.email = email;
+    }
 }
