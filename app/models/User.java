@@ -39,15 +39,10 @@ public class User extends Model {
     @Formats.NonEmpty
     public Boolean validated = false;
 
-    // -- Queries (long id, user.class)
     public static Model.Finder<Long, User> find = new Model.Finder<Long, User>(Long.class, User.class);
 
     public static User findByEmail(String email) {
         return find.where().eq("email", email).findUnique();
-    }
-
-    public static User findByFullname(String fullname) {
-        return find.where().eq("fullname", fullname).findUnique();
     }
 
     public static User findByConfirmationToken(String token) {
