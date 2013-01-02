@@ -1,10 +1,6 @@
 @(signupForm: Form[forms.account.SignupForm], loginForm: Form[forms.account.LoginForm])
 
-@scripts = {
-    <script src="@routes.Assets.at("javascripts/password.js")" type="text/javascript"></script>
-}
-
-@main(title = "OTP", scripts = scripts) {
+@main(title = "OTP") {
     @wflash()
 
     <div class="span8">
