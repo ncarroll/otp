@@ -1,12 +1,13 @@
 package models.utils;
 
 import org.mindrot.jbcrypt.BCrypt;
+import play.i18n.Messages;
 
 public class Hash {
 
     public static String createPassword(String clearString) throws AppException {
         if (clearString == null) {
-            throw new AppException("No password defined!");
+            throw new AppException(Messages.get("no.password.defined"));
         }
         return BCrypt.hashpw(clearString, BCrypt.gensalt());
     }

@@ -97,8 +97,8 @@ public class Token extends Model {
         String toMail = null;
 
         // Should use reverse routing here.
-        String urlString = urlString = "http://" + externalServer + "/" + type.urlPath + "/" + token.token;
-        URL url = new URL(urlString); // validate the URL
+        String urlString = "http://" + externalServer + "/" + type.urlPath + "/" + token.token;
+        URL url = new URL(urlString);
 
         switch (type) {
             case password:
@@ -117,5 +117,4 @@ public class Token extends Model {
         Mail.Envelope envelope = new Mail.Envelope(subject, message, toMail);
         Mail.sendMail(envelope);
     }
-
 }
