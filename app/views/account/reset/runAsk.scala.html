@@ -3,12 +3,12 @@
 
 @main() {
 
-    <h3>@Messages("resetpassword")</h3>
+  <h3>@Messages("resetpassword")</h3>
 
-    @wflash()
+  @wflash()
 
-    @Messages("resetpassword.mailsent")
-    <div class="form-actions">
-        <a href="@routes.Application.index" class="btn">@Messages("goback")</a>
-    </div>
+  @Messages("resetpassword.mailsent")
+  <div class="form-actions">
+    <a href="@routes.Application.index" class="btn">@Messages("goback")</a>
+  </div>
 }

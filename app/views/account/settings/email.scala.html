@@ -4,23 +4,21 @@
 
 @index(user) {
 
-    @Messages("account.settings.email")
+  @Messages("account.settings.email")
 
-    @wflash()
+  @wflash()
 
-    @form(controllers.account.settings.routes.Email.runEmail()) {
+  @form(controllers.account.settings.routes.Email.runEmail()) {
+    <fieldset>
+    @inputText(
+      askForm("email"),
+      'placeholder -> Messages("email"),
+      '_label -> null
+    )
+    </fieldset>
 
-        <fieldset>
-        @inputText(
-            askForm("email"),
-            'placeholder -> Messages("email"),
-            '_label -> null
-        )
-        </fieldset>
-
-        <div class="form-actions">
-            <input type="submit" class="btn btn-primary" value="@Messages("validate")">
-        </div>
-    }
-
+    <div class="form-actions">
+      <input type="submit" class="btn btn-primary" value="@Messages("validate")">
+    </div>
+  }
 }

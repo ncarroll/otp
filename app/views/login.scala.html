@@ -3,45 +3,44 @@
 @import helper._
 
 @implicitFieldConstructor = @{
-    FieldConstructor(twitterBootstrapInput.render)
+  FieldConstructor(twitterBootstrapInput.render)
 }
 
 @main(title = "OTP") {
-    @wflash()
+  @wflash()
 
-    <div class="offset2 span8">
-        <div class="well">
-            <h3>@Messages("signin.signin")</h3>
+  <div class="offset2 span8">
+    <div class="well">
+      <h3>@Messages("signin.signin")</h3>
 
-        @form(routes.Application.authenticate(), 'class -> "form-vertical") {
+      @form(routes.Application.authenticate(), 'class -> "form-vertical") {
 
-            @if(loginForm.hasGlobalErrors) {
-                <p class="error">
-                    <span class="label important">@loginForm.globalError.message</span>
-                </p>
-            }
-
-            <fieldset>
-                @inputText(
-                    loginForm("email"),
-                    'placeholder -> Messages("email"),
-                    '_label -> null,
-                    '_help -> Messages("signin.your.email")
-                )
-                @inputPassword(
-                    loginForm("password"),
-                    '_label -> null,
-                    'placeholder -> Messages("password"),
-                    '_help -> Messages("signin.your.password")
-                )
-            </fieldset>
-
-            <div class="form-actions">
-                <input type="submit" class="btn btn-primary" value="@Messages("signin.signin")">
-                <small><a href="@controllers.account.routes.Reset.ask">@Messages("forgot.password")</a></small>
-            </div>
+        @if(loginForm.hasGlobalErrors) {
+          <p class="error">
+            <span class="label important">@loginForm.globalError.message</span>
+          </p>
         }
+
+        <fieldset>
+          @inputText(
+              loginForm("email"),
+              'placeholder -> Messages("email"),
+              '_label -> null,
+              '_help -> Messages("signin.your.email")
+          )
+          @inputPassword(
+              loginForm("password"),
+              '_label -> null,
+              'placeholder -> Messages("password"),
+              '_help -> Messages("signin.your.password")
+          )
+        </fieldset>
+
+        <div class="form-actions">
+            <input type="submit" class="btn btn-primary" value="@Messages("signin.signin")">
+            <small><a href="@controllers.account.routes.Reset.ask">@Messages("forgot.password")</a></small>
         </div>
+      }
     </div>
-    }
+  </div>
 }

@@ -7,25 +7,25 @@
 
 @form(controllers.account.routes.Signup.save()) {
 
-    <fieldset>
-        @inputText(
-            signupForm("email"),
-            'placeholder -> Messages("email"),
-            '_label -> null
-        )
-        @inputText(
-            signupForm("fullname"),
-            'placeholder -> Messages("fullname"),
-            '_label -> null
-        )
-        @inputPassword(
-            signupForm("inputPassword"),
-            '_label -> null,
-            'placeholder -> Messages("password")
-        )
-    </fieldset>
+  <fieldset>
+    @inputText(
+      signupForm("email"),
+      'placeholder -> Messages("email"),
+      '_label -> null
+    )
+    @inputText(
+      signupForm("fullname"),
+      'placeholder -> Messages("fullname"),
+      '_label -> null
+    )
+    @inputPassword(
+      signupForm("inputPassword"),
+      '_label -> null,
+      'placeholder -> Messages("password")
+    )
+  </fieldset>
 
-    <div class="form-actions">
-        <input type="submit" class="btn primary" value="@Messages("signup.signup")">
-    </div>
+  <div class="form-actions">
+    <input type="submit" class="btn primary" value="@Messages("signup.signup")">
+  </div>
 }
