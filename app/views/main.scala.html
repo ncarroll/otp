@@ -1,4 +1,5 @@
-@(title: String = "OTP", user: User = null, scripts: Html = Html(""))(content: Html)
+@(title: String = "OTP", user: User = null, scripts: Html = Html(""), header: Html = Html(""))(content: Html)
+@import helper._
 
 <!DOCTYPE html>
 
@@ -27,11 +28,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">OTP</a>
+                    <a class="brand" href="/">OTP</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="home-menu active"><a href="#">Home</a></li>
+                            <li class="home-menu active"><a href="/">Home</a></li>
                         </ul>
+                        @header
                     </div>
                 </div>
             </div>

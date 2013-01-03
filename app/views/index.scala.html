@@ -1,13 +1,19 @@
 @(signupForm: Form[forms.account.SignupForm], loginForm: Form[forms.account.LoginForm])
 
-@main(title = "OTP") {
+@import helper._
+
+@header = {
+    @form(routes.Application.authenticate(), 'class -> "navbar-form pull-right") {
+        <input class="span2" type="text" placeholder="Email">
+        <input class="span2" type="password" placeholder="Password">
+        <button type="submit" class="btn btn-primary">Sign in</button>
+    }
+}
+
+@main(title = "OTP", header = header) {
     @wflash()
 
-    <div class="span8">
-        <div class="well">
-        @login(loginForm)
-        </div>
-
+    <div class="offset2 span8">
         <div class="well">
         @account.signup.createFormOnly(signupForm)
         </div>

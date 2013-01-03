@@ -9,6 +9,7 @@ import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
+import views.html.login;
 
 import static play.data.Form.form;
 
@@ -41,7 +42,7 @@ public class Application extends Controller {
         Form<SignupForm> signupForm = form(SignupForm.class);
 
         if (loginForm.hasErrors()) {
-            return badRequest(index.render(signupForm, loginForm));
+            return badRequest(login.render(loginForm));
         } else {
             session("email", loginForm.get().email);
             return GO_DASHBOARD;
@@ -52,5 +53,9 @@ public class Application extends Controller {
         session().clear();
         flash("success", Messages.get("youve.been.logged.out"));
         return GO_HOME;
+    }
+
+    public Result showLogin() {
+        return ok(login.render(form(LoginForm.class)));
     }
 }
