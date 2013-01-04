@@ -11,13 +11,13 @@ object ApplicationBuild extends Build {
     javaJdbc,
     javaEbean,
     "org.springframework" % "spring-context" % "3.2.0.RELEASE",
+    "com.google.guava" % "guava" % "13.0",
     "org.mindrot" % "jbcrypt" % "0.3m",
     "com.typesafe" % "play-plugins-mailer_2.10" % "2.1-SNAPSHOT"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
     requireJs += "main.javascripts"
-
   )
 
 }

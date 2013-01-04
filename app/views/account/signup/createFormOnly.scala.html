@@ -3,7 +3,7 @@
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
 
-<h3>@Messages("signup.new")</h3>
+<h3>@Messages("signup.create.account")</h3>
 
 @form(controllers.account.routes.Signup.save()) {
 
@@ -26,6 +26,6 @@
   </fieldset>
 
   <div class="form-actions">
-    <input type="submit" class="btn primary" value="@Messages("signup.signup")">
+    <input type="submit" class="btn btn-primary" value="@Messages("signup.signup")">
   </div>
 }
