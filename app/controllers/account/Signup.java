@@ -1,10 +1,11 @@
 package controllers.account;
 
 import forms.account.SignupForm;
+import helpers.mail.Envelope;
 import models.User;
-import models.utils.AppException;
-import models.utils.Hash;
-import models.utils.Mail;
+import helpers.AppException;
+import helpers.Hash;
+import helpers.mail.Mail;
 import org.apache.commons.mail.EmailException;
 import play.Configuration;
 import play.Logger;
@@ -22,7 +23,6 @@ import java.util.UUID;
 
 import static play.data.Form.form;
 
-@org.springframework.stereotype.Controller
 public class Signup extends Controller {
 
     public Result create() {
@@ -86,7 +86,7 @@ public class Signup extends Controller {
         URL url = new URL(urlString); // validate the URL, will throw an exception if bad.
         String message = Messages.get("mail.confirm.message", url.toString());
 
-        Mail.Envelope envelope = new Mail.Envelope(subject, message, user.email);
+        Envelope envelope = new Envelope(subject, message, user.email);
         Mail.sendMail(envelope);
     }
 
@@ -125,7 +125,7 @@ public class Signup extends Controller {
     private void sendMailConfirmation(User user) throws EmailException {
         String subject = Messages.get("mail.welcome.subject");
         String message = Messages.get("mail.welcome.message");
-        Mail.Envelope envelope = new Mail.Envelope(subject, message, user.email);
+        Envelope envelope = new Envelope(subject, message, user.email);
         Mail.sendMail(envelope);
     }
 }

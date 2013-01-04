@@ -1,5 +1,6 @@
-package models.utils;
+package helpers;
 
+import helpers.AppException;
 import org.mindrot.jbcrypt.BCrypt;
 import play.i18n.Messages;
 

@@ -2,10 +2,11 @@ package controllers.account;
 
 import forms.account.AskForm;
 import forms.account.ResetForm;
+import helpers.AppException;
+import helpers.mail.Envelope;
+import helpers.mail.Mail;
 import models.Token;
 import models.User;
-import models.utils.AppException;
-import models.utils.Mail;
 import org.apache.commons.mail.EmailException;
 import play.Logger;
 import play.data.Form;
@@ -66,7 +67,7 @@ public class Reset extends Controller {
         String subject = Messages.get("mail.reset.fail.subject");
         String message = Messages.get("mail.reset.fail.message", email);
 
-        Mail.Envelope envelope = new Mail.Envelope(subject, message, email);
+        Envelope envelope = new Envelope(subject, message, email);
         Mail.sendMail(envelope);
     }
 
@@ -146,7 +147,7 @@ public class Reset extends Controller {
     private static void sendPasswordChanged(User user) throws EmailException {
         String subject = Messages.get("mail.reset.confirm.subject");
         String message = Messages.get("mail.reset.confirm.message");
-        Mail.Envelope envelope = new Mail.Envelope(subject, message, user.email);
+        Envelope envelope = new Envelope(subject, message, user.email);
         Mail.sendMail(envelope);
     }
 }

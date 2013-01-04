@@ -13,7 +13,6 @@ import views.html.account.settings.password;
 import java.net.MalformedURLException;
 
 @Security.Authenticated(Secured.class)
-@org.springframework.stereotype.Controller
 public class Password extends Controller {
 
     public static Result index() {

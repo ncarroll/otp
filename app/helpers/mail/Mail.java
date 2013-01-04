@@ -1,39 +1,17 @@
-package models.utils;
+package helpers.mail;
 
+import com.typesafe.plugin.MailerAPI;
+import com.typesafe.plugin.MailerPlugin;
 import play.Configuration;
 import play.Logger;
 import play.libs.Akka;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import com.typesafe.plugin.MailerAPI;
-import com.typesafe.plugin.MailerPlugin;
 
 public class Mail {
     private static final int DELAY = 1;
-
-    public static class Envelope {
-        private String subject;
-        private String message;
-        private List<String> toEmails;
-
-        public Envelope(String subject, String message, List<String> toEmails) {
-            this.subject = subject;
-            this.message = message;
-            this.toEmails = toEmails;
-        }
-
-        public Envelope(String subject, String message, String email) {
-            this.message = message;
-            this.subject = subject;
-            this.toEmails = new ArrayList<String>();
-            this.toEmails.add(email);
-        }
-    }
 
     public static void sendMail(Envelope envelope) {
         SendMailJob sendMailJob = new SendMailJob(envelope);
@@ -54,15 +32,13 @@ public class Mail {
             final Configuration root = Configuration.root();
             final String mailFrom = root.getString("mail.from");
             email.addFrom(mailFrom);
-            email.setSubject(envelope.subject);
-            for (String toEmail : envelope.toEmails) {
-                email.addRecipient(toEmail);
-                Logger.debug("Mail.sendMail: Mail will be sent to " + toEmail);
-            }
+            email.setSubject(envelope.getSubject());
+            email.addRecipient(envelope.getEmailTo());
+            Logger.debug("Mail.sendMail: Mail will be sent to " + envelope.getEmailTo());
 
             final String mailSign = root.getString("mail.sign");
-            email.send(envelope.message + "\n\n " + mailSign,
-                    envelope.message + "<br><br>--<br>" + mailSign);
+            email.send(envelope.getMessage() + "\n\n " + mailSign,
+                    envelope.getMessage() + "<br><br>--<br>" + mailSign);
 
             Logger.debug("Mail sent - SMTP:" + root.getString("smtp.host")
                     + ":" + root.getString("smtp.port")

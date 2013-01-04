@@ -1,7 +1,7 @@
 package forms.account;
 
 import models.User;
-import models.utils.AppException;
+import helpers.AppException;
 import play.data.validation.Constraints;
 import play.i18n.Messages;
 

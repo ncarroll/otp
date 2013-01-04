@@ -1,7 +1,7 @@
 package models;
 
-import models.utils.AppException;
-import models.utils.Hash;
+import helpers.AppException;
+import helpers.Hash;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;

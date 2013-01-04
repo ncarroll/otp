@@ -1,4 +1,4 @@
-package models.utils;
+package helpers;
 
 public class AppException extends Exception {
 

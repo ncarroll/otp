@@ -1,6 +1,7 @@
 package models;
 
-import models.utils.Mail;
+import helpers.mail.Envelope;
+import helpers.mail.Mail;
 import play.Configuration;
 import play.Logger;
 import play.data.format.Formats;
@@ -114,7 +115,7 @@ public class Token extends Model {
         }
 
         Logger.debug("sendMailResetLink: url = " + url);
-        Mail.Envelope envelope = new Mail.Envelope(subject, message, toMail);
+        Envelope envelope = new Envelope(subject, message, toMail);
         Mail.sendMail(envelope);
     }
 }

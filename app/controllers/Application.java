@@ -13,7 +13,6 @@ import views.html.login;
 
 import static play.data.Form.form;
 
-@org.springframework.stereotype.Controller
 public class Application extends Controller {
 
     public static Result GO_HOME = redirect(routes.Application.index());
@@ -38,8 +37,6 @@ public class Application extends Controller {
 
     public Result authenticate() {
         Form<LoginForm> loginForm = form(LoginForm.class).bindFromRequest();
-
-        Form<SignupForm> signupForm = form(SignupForm.class);
 
         if (loginForm.hasErrors()) {
             return badRequest(login.render(loginForm));
