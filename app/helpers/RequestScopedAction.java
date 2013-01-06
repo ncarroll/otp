@@ -1,3 +1,5 @@
+package helpers;
+
 import com.google.inject.Key;
 import com.google.inject.servlet.ServletScopes;
 import play.mvc.Action;

@@ -29,10 +29,6 @@ public class Signup extends Controller {
         return ok(create.render(form(SignupForm.class)));
     }
 
-    public Result createFormOnly() {
-        return ok(create.render(form(SignupForm.class)));
-    }
-
     public Result save() {
         Form<SignupForm> signupForm = form(SignupForm.class).bindFromRequest();
 
