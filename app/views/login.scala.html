@@ -34,6 +34,12 @@
               'placeholder -> Messages("password"),
               '_help -> Messages("signin.your.password")
           )
+          @inputPassword(
+              loginForm("timeBasedOTP"),
+              '_label-> null,
+              'placeholder -> Messages("totp"),
+              '_help -> Messages("signin.your.totp")
+          )
         </fieldset>
 
         <div class="form-actions">

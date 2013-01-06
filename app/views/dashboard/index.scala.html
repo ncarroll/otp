@@ -1,5 +1,11 @@
 @(user: User)
 
-@main(title= "Dashboard", user = user) {
+@header = {
+    <p class="navbar-text pull-right">
+        <a href="/logout" class="navbar-link">Logout</a>
+    </p>
+}
+
+@main(title= "Dashboard", user = user, header = header) {
   Hoorah, you have successfully logged in!
 }

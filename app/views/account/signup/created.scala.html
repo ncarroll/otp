@@ -1,10 +1,12 @@
+@(secretKey:String)
+
 @main() {
 
   <h3>@Messages("signup.successfull")</h3>
 
   <div class="well">
   <p>Use the QR code to set up your Google Authenticator time-based one-time password.</p>
-  <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=Hello%20world"/>
+  <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=@secretKey"/>
   </div>
 
   <div class="well">

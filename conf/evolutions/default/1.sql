@@ -1,3 +1,6 @@
+# --- Created by Ebean DDL
+# To stop Ebean DDL generation, remove this comment and start using Evolutions
+
 # --- !Ups
 
 create table token (
@@ -16,6 +19,7 @@ create table user (
   fullname                  varchar(255),
   confirmation_token        varchar(255),
   password_hash             varchar(255),
+  secret_key                varchar(255),
   date_creation             timestamp,
   validated                 boolean,
   constraint uq_user_email unique (email),

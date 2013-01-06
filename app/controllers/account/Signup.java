@@ -1,12 +1,13 @@
 package controllers.account;
 
 import forms.account.SignupForm;
-import helpers.mail.Envelope;
-import models.User;
 import helpers.AppException;
 import helpers.Hash;
+import helpers.mail.Envelope;
 import helpers.mail.Mail;
+import models.User;
 import org.apache.commons.mail.EmailException;
+import org.picketbox.core.util.Base32;
 import play.Configuration;
 import play.Logger;
 import play.data.Form;
@@ -49,11 +50,13 @@ public class Signup extends Controller {
             user.fullname = signup.fullname;
             user.passwordHash = Hash.createPassword(signup.inputPassword);
             user.confirmationToken = UUID.randomUUID().toString();
+            user.secretKey = generateSecretKey();
+            Logger.debug("Secret key: " + user.secretKey);
 
             user.save();
             sendMailAskForConfirmation(user);
 
-            return ok(created.render());
+            return ok(created.render(keyUriFormat(user)));
         } catch (EmailException e) {
             Logger.debug("SignupForm.save Cannot send email", e);
             flash("error", Messages.get("error.sending.email"));
@@ -123,5 +126,17 @@ public class Signup extends Controller {
         String message = Messages.get("mail.welcome.message");
         Envelope envelope = new Envelope(user.email, subject, message);
         Mail.sendMail(envelope);
+    }
+
+    private String generateSecretKey() {
+        String secretKey = UUID.randomUUID().toString();
+        secretKey = secretKey.replace('-', 'c');
+        return secretKey.substring(0, 10);
+    }
+
+    private String keyUriFormat(User user) {
+        String base32EncodedKey = Base32.encode(user.secretKey.getBytes());
+
+        return "otpauth://totp/" + user.email + "?secret=" + base32EncodedKey;
     }
 }

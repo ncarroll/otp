@@ -2,6 +2,7 @@ package models;
 
 import helpers.AppException;
 import helpers.Hash;
+import org.picketbox.core.util.TimeBasedOTPUtil;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
@@ -9,10 +10,13 @@ import play.db.ebean.Model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.security.GeneralSecurityException;
 import java.util.Date;
 
 @Entity
 public class User extends Model {
+
+    public static final int NUM_DIGITS = 6;
 
     @Id
     public Long id;
@@ -33,6 +37,10 @@ public class User extends Model {
     @Formats.NonEmpty
     public String passwordHash;
 
+    @Constraints.Required
+    @Formats.NonEmpty
+    public String secretKey;
+
     @Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date dateCreation;
 
@@ -49,13 +57,15 @@ public class User extends Model {
         return find.where().eq("confirmationToken", token).findUnique();
     }
 
-    public static User authenticate(String email, String clearPassword) throws AppException {
+    public static User authenticate(String email, String clearPassword, String timeBasedOTP)
+            throws AppException, GeneralSecurityException {
 
         // get the user with email only to keep the salt password
         User user = find.where().eq("email", email).findUnique();
         if (user != null) {
             // get the hash password from the salt + clear password
-            if (Hash.checkPassword(clearPassword, user.passwordHash)) {
+            if (Hash.checkPassword(clearPassword, user.passwordHash)
+                    && TimeBasedOTPUtil.validate(timeBasedOTP, user.secretKey.getBytes(), NUM_DIGITS)) {
                 return user;
             }
         }
