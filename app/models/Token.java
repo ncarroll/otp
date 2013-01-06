@@ -26,7 +26,9 @@ public class Token extends Model {
     private static final int EXPIRATION_DAYS = 1;
 
     public enum TypeToken {
-        password("reset"), email("email");
+        password("reset"),
+        email("email");
+
         private String urlPath;
 
         TypeToken(String urlPath) {
@@ -115,7 +117,7 @@ public class Token extends Model {
         }
 
         Logger.debug("sendMailResetLink: url = " + url);
-        Envelope envelope = new Envelope(subject, message, toMail);
+        Envelope envelope = new Envelope(toMail, subject, message);
         Mail.sendMail(envelope);
     }
 }

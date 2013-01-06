@@ -25,7 +25,7 @@ import static play.data.Form.form;
 
 public class Signup extends Controller {
 
-    public Result create() {
+    public Result showSignup() {
         return ok(create.render(form(SignupForm.class)));
     }
 
@@ -82,7 +82,7 @@ public class Signup extends Controller {
         URL url = new URL(urlString); // validate the URL, will throw an exception if bad.
         String message = Messages.get("mail.confirm.message", url.toString());
 
-        Envelope envelope = new Envelope(subject, message, user.email);
+        Envelope envelope = new Envelope(user.email, subject, message);
         Mail.sendMail(envelope);
     }
 
@@ -121,7 +121,7 @@ public class Signup extends Controller {
     private void sendMailConfirmation(User user) throws EmailException {
         String subject = Messages.get("mail.welcome.subject");
         String message = Messages.get("mail.welcome.message");
-        Envelope envelope = new Envelope(subject, message, user.email);
+        Envelope envelope = new Envelope(user.email, subject, message);
         Mail.sendMail(envelope);
     }
 }

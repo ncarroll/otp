@@ -17,7 +17,7 @@ GET     /settings/email             controllers.account.settings.Email.index()
 POST    /settings/email             controllers.account.settings.Email.runEmail()
 
 # Registers the user, sending an email to confirm the account.
-GET     /signup                     @controllers.account.Signup.create()
+GET     /signup                     @controllers.account.Signup.showSignup()
 POST    /signup                     @controllers.account.Signup.save()
 
 # Accessed when the user confirms the registration.

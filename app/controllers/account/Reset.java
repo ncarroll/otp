@@ -67,7 +67,7 @@ public class Reset extends Controller {
         String subject = Messages.get("mail.reset.fail.subject");
         String message = Messages.get("mail.reset.fail.message", email);
 
-        Envelope envelope = new Envelope(subject, message, email);
+        Envelope envelope = new Envelope(email, subject, message);
         Mail.sendMail(envelope);
     }
 
@@ -147,7 +147,7 @@ public class Reset extends Controller {
     private static void sendPasswordChanged(User user) throws EmailException {
         String subject = Messages.get("mail.reset.confirm.subject");
         String message = Messages.get("mail.reset.confirm.message");
-        Envelope envelope = new Envelope(subject, message, user.email);
+        Envelope envelope = new Envelope(user.email, subject, message);
         Mail.sendMail(envelope);
     }
 }
