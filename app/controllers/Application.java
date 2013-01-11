@@ -32,7 +32,7 @@ public class Application extends Controller {
             }
         }
 
-        return ok(index.render(form(SignupForm.class), form(LoginForm.class)));
+        return ok(index.render(form(SignupForm.class)));
     }
 
     public Result authenticate() {
