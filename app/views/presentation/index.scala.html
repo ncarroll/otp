@@ -1,0 +1,219 @@
+@(user: User)
+
+@head = {
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/reveal/reveal.min.css")">
+  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/reveal/theme/default.css")" id="theme">
+  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/reveal/zenburn.css")">
+
+  <!--[if lt IE 9]>
+  <script src="@routes.Assets.at ("javascripts/reveal/html5shiv.js")"></script>
+  <![endif]-->
+}
+
+@navbar = {
+  <p class="navbar-text pull-right">
+    <a href="/logout" class="navbar-link">Logout</a>
+  </p>
+}
+
+@main (title = "Presentation", user = user, head = head, navbar = navbar) {
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h2>Multi-Factor <br>Authentication</h2>
+        <p><small>By <a href="http://nickcarroll.me">Nick Carroll</a></small></p>
+      </section>
+
+      <section>
+        <h3>Introduction</h3>
+        <p>The year 2012 seemed to be the year when passwords broke</p>
+      </section>
+
+      <section>
+        <h3>Yahoo Accounts<br/> Compromised</h3>
+        <p>Over <a href="http://www.zdnet.com/yahoo-confirms-400000-accounts-hacked-less-than-5-valid-7000000812/">400,000 Yahoo! accounts were hacked</a> on 11 July 2012.</p>
+      </section>
+
+      <section>
+        <h3>LinkedIn Accounts<br/> Compromised</h3>
+        <p>Over <a href="http://arstechnica.com/security/2012/06/8-million-leaked-passwords-connected-to-linkedin/">8,000,000 LinkedIn accounts were hacked</a> on 6 June 2012.</p>
+      </section>
+
+      <section>
+        <h3>Top 5 Hacked LinkedIn<br/> Passwords</h3>
+        <p>
+          <ol>
+            <li>link</li>
+            <li>1234</li>
+            <li>work</li>
+            <li>god</li>
+            <li>job</li>
+          </ol>
+        </p>
+        <p><small>Source: <a href="http://www.forbes.com/sites/anthonykosner/2012/06/11/unbelievable-top-10-hacked-linkedin-passwords/">http://www.forbes.com/sites/anthonykosner/2012/06/11/unbelievable-top-10-hacked-linkedin-passwords/</a></small></p>
+      </section>
+
+      <section>
+        <h3>Daisy-Chained Accounts</h3>
+        <ul>
+          <li>Remember Wired's senior writer <a href="http://www.wired.com/gadgetlab/2012/08/apple-amazon-mat-honan-hacking/">Mat Honan's devastating ordeal</a> after his Google account was compromised?</li>
+          <li>Hackers cracked into his Amazon account</li>
+          <li>Then his Apple ID account</li>
+          <li>Then his Gmail account</li>
+          <li>Then his Twitter account</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Then he lost his<br/> entire digital life</h3>
+      </section>
+
+      <section>
+        <p>What could a hacker get access to if they hacked the email account that you use to register for online services?</p>
+      </section>
+
+      <section>
+        <h3>Password Tips</h3>
+        <ol>
+          <li>Make your passwords complex</li>
+          <li>Use a different password for each website</li>
+          <li>Use a password manager</li>
+          <li>Don't use easy answers for security questions</li>
+          <li>Change your passwords frequently</li>
+        </ol>
+      </section>
+
+      <section>
+        <h3>Let's Try Some Passwords</h3>
+        <iframe src="http://howsecureismypassword.net" width="500" height="400"></iframe>
+      </section>
+
+      <section>
+        <p>What can developers do to make their applications more secure for users?</p>
+        <p class="fragment highlight-green"><em>Use two-factor authentication!</em></p>
+        <p class="fragment">A second factor of identity evidence implies a higher probability that the user is who they say they are.</p>
+      </section>
+
+      <section>
+        <section>
+          <h3>Two-Factor Authentication</h3>
+          <ul>
+            <li>One of the most effective strategies for <a href="http://www.dsd.gov.au/images/top35-table-2012.png">mitigating against targeted cyber intrusions</a>.</li>
+            <li>Requires a user to <em>provide at least two of the following categories</em> to authenticate:
+              <ul>
+                <li>Knowledge Factor - something you know</li>
+                <li>Possession Factor - something you have</li>
+                <li>Inherence Factor - Something you are</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Knowledge Factors</h3>
+          <ul>
+            <li>Password/Pass Phrase - secret word or string of characters</li>
+            <li>PIN - secret numeric password</li>
+            <li>Pattern - Windows 8 picture password</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Possession Factors</h3>
+          <ul>
+            <li>Disconnected tokens - RSA SecurID</li>
+            <li>Connected tokens - USB token that stores an X.509 certificate</li>
+            <li>Contactless card - RFID proximity card with X.509 certificate</li>
+            <li>Contact card - Magnetic stripe card containing secret</li>
+            <li>One-time Pads - A password used only once per authentication challenge</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Inherence Factors</h3>
+          <ul>
+            <li>Fingerprints</li>
+            <li>Facial recognition</li>
+            <li>Voice recognition</li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h3>Approach Used In Demo</h3>
+          <ul>
+            <li>Combination of:
+              <ul>
+                <li>Password - something you know</li>
+                <li>Time-Based One-Time Password (TOTP) - something you have</li>
+              </ul>
+            </li>
+            <li>TOTP is the most effective form of multi-factor auth when implemented correctly.</li>
+            <li>If an adversary key logs or intercepts the one-time password, after the expiry time passes the information becomes useless.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Time-Based One-Time Password (TOTP)</h3>
+          <ul>
+            <li>The prover and verifier must know or be able to derive the current Unix time for OTP generation.</li>
+            <li>The prover and verifier must share the same secret.</li>
+            <li>The prover and verifier must use the same time-step value X.</li>
+            <li>There must be a unique secret (key) for each prover.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>TOTP Implementation Details</h3>
+          <ul>
+            <li>Demo uses the <a href="http://tools.ietf.org/html/rfc6238">IETF Time-Based One-Time Password Algorithm</a></li>
+            <li><a href="http://code.google.com/p/google-authenticator/">Google Authenticator</a> provides an implementation of the algorithm for smartphones</li>
+            <li>Server code uses <a href="http://www.jboss.org/picketlink">JBoss PicketLink</a> for TOTP verification</li>
+            <li>The secret is shared between server and smartphone using a QR code.</li>
+            <li>The time-step is set to 30 seconds.</li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <h3>Issues Holding Back Widespread Adoption</h3>
+        <ul>
+          <li>Cost Effectiveness - Expensive to implement and maintain</li>
+          <li>Operational Overhead - Tracking inventory of hardware tokens</li>
+          <li>Inconvenient - How many hardware tokens would you have if every site required you to have one?</li>
+        </ul>
+        <p>Companies like <a href="http://www.okta.com/">Okta</a> see these problems as opportunities.</p>
+      </section>
+    </div>
+  </div>
+
+  <script src="@routes.Assets.at ("javascripts/reveal/head.min.js")"></script>
+  <script src="@routes.Assets.at ("javascripts/reveal/reveal.min.js")"></script>
+  <script>
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      theme: Reveal.getQueryHash().theme,
+      transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+      // Optional libraries used to extend on reveal.js
+      dependencies: [
+        { src: ' @routes.Assets.at ("javascripts/reveal/classList.js")
+          ', condition: function() { return !document.body.classList;} },
+        { src: ' @routes.Assets.at ("javascripts/reveal/plugin/markdown/showdown.js") ', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: ' @routes.Assets.at ("javascripts/reveal/plugin/markdown/markdown.js") ', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: ' @routes.Assets.at ("javascripts/reveal/plugin/highlight/highlight.js") ', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: ' @routes.Assets.at ("javascripts/reveal/plugin/zoom-js/zoom.js") ', async: true, condition: function() { return !!document.body.classList; } },
+        { src: ' @routes.Assets.at ("javascripts/reveal/plugin/notes/notes.js") ', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+    });
+  </script>
+}
