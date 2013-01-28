@@ -17,7 +17,7 @@ public class Application extends Controller {
 
     public static Result GO_HOME = redirect(routes.Application.index());
 
-    public static Result GO_DASHBOARD = redirect(routes.Dashboard.index());
+    public static Result GO_PRESENTATION = redirect(routes.Presentation.index());
 
     public Result index() {
         // Check that the email matches a confirmed user before we redirect
@@ -25,7 +25,7 @@ public class Application extends Controller {
         if (email != null) {
             User user = User.findByEmail(email);
             if (user != null && user.validated) {
-                return GO_DASHBOARD;
+                return GO_PRESENTATION;
             } else {
                 Logger.debug("Clearing invalid session credentials");
                 session().clear();
@@ -42,7 +42,7 @@ public class Application extends Controller {
             return badRequest(login.render(loginForm));
         } else {
             session("email", loginForm.get().email);
-            return GO_DASHBOARD;
+            return GO_PRESENTATION;
         }
     }
 

@@ -10,9 +10,9 @@ import static play.test.Helpers.contentType;
 public class ApplicationTest {
 
     @Test
-    public void renderDashboardTemplate() {
+    public void renderPresentationTemplate() {
         User user = new User();
-        Content html = views.html.dashboard.index.render(user);
+        Content html = views.html.presentation.index.render(user);
         assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("Hoorah, you have successfully logged in!");
     }
